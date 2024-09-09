@@ -10,20 +10,20 @@ on:
 
 jobs:
   CodeAudits:
-    uses: tylerbertrand/morphia-workflows/.github/workflows/code-audits.yml@run-clean
+    uses: tylerbertrand/morphia-workflows/.github/workflows/code-audits.yml@run-with-without-tests
     with:
       java: 17
 
   Build:
-    uses: tylerbertrand/morphia-workflows/.github/workflows/build.yml@run-clean
+    uses: tylerbertrand/morphia-workflows/.github/workflows/build.yml@run-with-without-tests
     secrets:
       DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
     with:
       java: 17
-      saveBuild: true
+      tests: false
 
   Critter:
-    uses: tylerbertrand/morphia-workflows/.github/workflows/build.yml@run-clean
+    uses: tylerbertrand/morphia-workflows/.github/workflows/build.yml@run-with-without-tests
     needs:
       - Build
     strategy:
@@ -34,6 +34,7 @@ jobs:
       DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
     with:
       java: ${{ matrix.java }}
+      tests: true
       maven-flags: "-Pcritter"
       optional: true
 
@@ -105,12 +106,12 @@ jobs:
         mongo: ${{ fromJson(needs.matrix.outputs.version_matrix) }}
         driver: ${{ fromJson(needs.matrix.outputs.driver_latest) }}
         java: [ 17 ]
-    uses: tylerbertrand/morphia-workflows/.github/workflows/build.yml@run-clean
+    uses: tylerbertrand/morphia-workflows/.github/workflows/build.yml@run-with-without-tests
     secrets:
       DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
     with:
       java: ${{ matrix.java }}
-      reuseBuild: true
+      tests: true
       archive-name: "${{matrix.mongo}}-${{matrix.driver}}-${{matrix.java}}-${{github.run_id}}"
       maven-flags: "-e -Dmongodb=${{ matrix.mongo }} -Ddriver.version=${{ matrix.driver }}"
 
@@ -137,12 +138,12 @@ jobs:
             java: 17
             mongo: 7
             optional: true
-    uses: tylerbertrand/morphia-workflows/.github/workflows/build.yml@run-clean
+    uses: tylerbertrand/morphia-workflows/.github/workflows/build.yml@run-with-without-tests
     secrets:
       DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
     with:
       java: ${{ matrix.java }}
-      reuseBuild: true
+      tests: true
       archive-name: "${{matrix.mongo}}-${{matrix.driver}}-${{matrix.java}}-${{github.run_id}}"
       maven-flags: "-e -Dmongodb=${{ matrix.mongo }} -Ddriver.version=${{ matrix.driver }}"
       optional: ${{ matrix.optional == true }}
@@ -154,7 +155,7 @@ jobs:
       - ServerTests
       - DriversTests
     if: needs.Matrix.outputs.releasable == 'true'
-    uses: tylerbertrand/morphia-workflows/.github/workflows/jreleaser.yml@run-clean
+    uses: tylerbertrand/morphia-workflows/.github/workflows/jreleaser.yml@run-with-without-tests
     with:
       java: 17
     secrets:
