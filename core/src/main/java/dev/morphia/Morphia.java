@@ -35,4 +35,8 @@ public final class Morphia {
         return new MorphiaDatastore(mongoClient, config);
     }
 
+    public static String hiWorld() {
+        return "Hello World!";
+    }
+
 }
