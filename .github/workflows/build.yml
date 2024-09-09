@@ -10,12 +10,12 @@ on:
 
 jobs:
   CodeAudits:
-    uses: evanchooly/workflows/.github/workflows/code-audits.yml@master
+    uses: tylerbertrand/morphia-workflows/.github/workflows/code-audits.yml@master
     with:
       java: 17
 
   Build:
-    uses: evanchooly/workflows/.github/workflows/build.yml@master
+    uses: tylerbertrand/morphia-workflows/.github/workflows/build.yml@master
     secrets:
       DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
     with:
@@ -23,7 +23,7 @@ jobs:
       saveBuild: true
 
   Critter:
-    uses: evanchooly/workflows/.github/workflows/build.yml@master
+    uses: tylerbertrand/morphia-workflows/.github/workflows/build.yml@master
     needs:
       - Build
     strategy:
@@ -105,7 +105,7 @@ jobs:
         mongo: ${{ fromJson(needs.matrix.outputs.version_matrix) }}
         driver: ${{ fromJson(needs.matrix.outputs.driver_latest) }}
         java: [ 17 ]
-    uses: evanchooly/workflows/.github/workflows/build.yml@master
+    uses: tylerbertrand/morphia-workflows/.github/workflows/build.yml@master
     secrets:
       DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
     with:
@@ -137,7 +137,7 @@ jobs:
             java: 17
             mongo: 7
             optional: true
-    uses: evanchooly/workflows/.github/workflows/build.yml@master
+    uses: tylerbertrand/morphia-workflows/.github/workflows/build.yml@master
     secrets:
       DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
     with:
@@ -154,7 +154,7 @@ jobs:
       - ServerTests
       - DriversTests
     if: needs.Matrix.outputs.releasable == 'true'
-    uses: evanchooly/workflows/.github/workflows/jreleaser.yml@master
+    uses: tylerbertrand/morphia-workflows/.github/workflows/jreleaser.yml@master
     with:
       java: 17
     secrets:
