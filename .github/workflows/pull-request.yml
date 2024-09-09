@@ -7,6 +7,6 @@ on:
 
 jobs:
   Build:
-    uses: tylerbertrand/morphia-workflows/.github/workflows/pull-request.yml@master
+    uses: tylerbertrand/morphia-workflows/.github/workflows/pull-request.yml@run-clean
     with:
       java: 17
