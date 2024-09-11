@@ -35,6 +35,9 @@
             <enabled>true</enabled>
         </local>
         <remote>
+            <server>
+                <url>https://ge.solutions-team.gradle.com/cache/morphia-shard-10/</url>
+            </server>
             <enabled>true</enabled>
             <storeEnabled>#{isTrue(env['CI'])}</storeEnabled> <!-- adjust to your CI provider -->
         </remote>
