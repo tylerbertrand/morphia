@@ -15,6 +15,17 @@
     <build>
         <plugins>
             <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <properties>
+                        <distribution>
+                            <enabled>true</enabled>
+                            <maxLocalExecutors>4</maxLocalExecutors>
+                        </distribution>
+                    </properties>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.4.2</version>
@@ -183,6 +194,10 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.support</groupId>
+            <artifactId>testng-engine</artifactId>
         </dependency>
         <dependency>
             <groupId>org.skyscreamer</groupId>

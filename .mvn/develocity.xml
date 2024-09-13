@@ -19,15 +19,15 @@
         xmlns="https://www.gradle.com/develocity-maven" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="https://www.gradle.com/develocity-maven https://www.gradle.com/schema/develocity-maven.xsd">
     <server>
-        <url>https://develocity.commonhaus.dev</url> <!-- adjust to your Develocity server -->
+        <url>https://ge.solutions-team.gradle.com</url> <!-- adjust to your Develocity server -->
         <allowUntrusted>false</allowUntrusted> <!-- ensure a trusted certificate is configured -->
     </server>
     <projectId>morphia</projectId>
     <buildScan>
         <backgroundBuildScanUpload>#{isFalse(env['CI'])}</backgroundBuildScanUpload> <!-- adjust to your CI provider -->
-        <publishing>
-            <onlyIf><![CDATA[authenticated && isTrue(env['CI'])]]></onlyIf>
-        </publishing>
+<!--        <publishing>-->
+<!--            <onlyIf><![CDATA[authenticated && isTrue(env['CI'])]]></onlyIf>-->
+<!--        </publishing>-->
         <obfuscation>
             <ipAddresses>#{{'0.0.0.0'}}</ipAddresses>
             <username>#{isTrue(env['CI']) ? 'GH actions' : 'Carmen Sandiego'}</username>
