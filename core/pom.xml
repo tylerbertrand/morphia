@@ -21,6 +21,7 @@
                         <distribution>
                             <enabled>true</enabled>
                             <maxLocalExecutors>4</maxLocalExecutors>
+                            <maxRemoteExecutors>0</maxRemoteExecutors>
                         </distribution>
                     </properties>
                 </configuration>
